@@ -365,7 +365,7 @@ def ask(d: PharmaData, question, llm=None):
     context = (f"QUESTION: {question}\nSNAPSHOT: {d.source}; recent window {d.recent_start} to {d.last_month}\n"
                f"SYSTEM NOTES: {' '.join(r['warnings']) or 'none'}\n\nSTRUCTURED FACTS:\n{facts_text or '(none)'}\n\n"
                "RETRIEVED EVIDENCE:\n" + "\n".join(f"[{e.doc_id}] ({e.source}) {e.text}" for e in ev.itertuples()))
-    answer, status, verified = None, "evidence-only (no API key)", None
+    answer, status, verified = None, "evidence only (Claude not used)", None
     if llm is not None:
         try:
             msgs = [{"role": "user", "content": context}]

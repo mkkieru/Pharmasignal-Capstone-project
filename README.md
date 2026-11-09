@@ -74,3 +74,31 @@ An interactive web app built on the notebook's results, with four pages:
 The assistant uses the same `.env` API key as the notebook. Without a key the app still works, and the assistant shows the evidence only. Re-run the notebook whenever the data changes, then restart the app.
 
 The app code is in `app.py` (pages) and `pharmasignal_core.py` (data loading, tender screening and assistant logic, taken from the notebook).
+
+## Hosting the app online (Streamlit Community Cloud, free)
+
+The files in `outputs/` that the app reads are committed to the repo, so the hosted app works without running the notebook.
+
+1. Go to https://share.streamlit.io and sign in with the GitHub account that owns the repo.
+2. Click **Create app → Deploy a public app from GitHub** and fill in:
+   - **Repository:** this repo · **Branch:** `master` · **Main file path:** `app.py`
+   - **App URL:** choose a name, e.g. `pharmasignal` → `https://pharmasignal.streamlit.app`
+3. Open **Advanced settings**:
+   - **Python version:** 3.12
+   - **Secrets:** paste the following (TOML format, values in quotes):
+
+     ```toml
+     ANTHROPIC_API_KEY = "sk-ant-..."
+     APP_PASSWORD = "choose-a-password"
+     ```
+
+4. Click **Deploy**. The first build takes a few minutes.
+
+**About the secrets:**
+- `ANTHROPIC_API_KEY` turns on Claude answers. Leave it out and the app still works in evidence-only mode.
+- `APP_PASSWORD` is optional but recommended. The app is public, so anyone with the link could use Claude on your API credit. With a password, visitors see all dashboards and evidence, but Claude answers need the password. Also set a monthly spend limit in the Anthropic Console.
+- Secrets are stored by Streamlit, not in GitHub. Change them later under the app's **⋮ → Settings → Secrets**.
+
+**Updating the hosted app:** push to `master`; the app redeploys automatically. If you re-run the notebook (for example with new data), commit the updated `outputs/` files too.
+
+**Search quality:** the hosted app uses the TF-IDF + SVD search fallback unless you uncomment `sentence-transformers` in `requirements.txt`. That installs PyTorch, which makes the build slow and may exceed the free tier's memory.
