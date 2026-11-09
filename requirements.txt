@@ -6,7 +6,7 @@ joblib
 requests
 anthropic
 jupyter
-streamlit
+streamlit>=1.67
 altair
 # Optional: better semantic search for the assistant (large download - installs PyTorch).
 # Without it, the notebook and app use a TF-IDF + SVD fallback automatically.

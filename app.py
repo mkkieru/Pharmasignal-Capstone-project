@@ -12,6 +12,13 @@ import pharmasignal_core as core
 
 st.set_page_config(page_title="PharmaSignal", page_icon="💊", layout="wide")
 
+MIN_STREAMLIT = (1, 67)
+if tuple(int(x) for x in re.findall(r"\d+", st.__version__)[:2]) < MIN_STREAMLIT or not hasattr(st, "navigation"):
+    st.error(f"This app needs Streamlit {'.'.join(map(str, MIN_STREAMLIT))} or newer, but this computer has {st.__version__}.")
+    st.markdown("Upgrade it in a terminal (on Windows: the **Anaconda Prompt**), then start the app again:\n\n"
+                "```\npip install --upgrade streamlit\npython -m streamlit run app.py\n```")
+    st.stop()
+
 missing = core.missing_outputs()
 if missing:
     st.error("The notebook outputs are missing: " + ", ".join(missing))
