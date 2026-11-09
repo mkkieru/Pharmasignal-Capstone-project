@@ -1,0 +1,25 @@
+event,method,public,first_event_month,peak,peak_events,detected,first_alert,lead_to_peak_m,lead_vs_public_m
+Nitrosamines in sartans,zscore,2018-07,2018-08,2018-08,12,True,2018-08,0.0,-1.0
+Nitrosamines in sartans,iqr,2018-07,2018-08,2018-08,12,True,2018-08,0.0,-1.0
+Nitrosamines in sartans,iforest,2018-07,2018-08,2018-08,12,True,2018-08,0.0,-1.0
+Nitrosamines in sartans,consensus,2018-07,2018-08,2018-08,12,True,2018-08,0.0,-1.0
+NDMA in ranitidine/nizatidine,zscore,2019-09,2019-10,2020-01,10,False,-,,
+NDMA in ranitidine/nizatidine,iqr,2019-09,2019-10,2020-01,10,True,2020-01,0.0,-4.0
+NDMA in ranitidine/nizatidine,iforest,2019-09,2019-10,2020-01,10,False,-,,
+NDMA in ranitidine/nizatidine,consensus,2019-09,2019-10,2020-01,10,False,-,,
+NDMA in metformin ER,zscore,2020-05,2020-06,2020-07,9,False,-,,
+NDMA in metformin ER,iqr,2020-05,2020-06,2020-07,9,True,2020-07,0.0,-2.0
+NDMA in metformin ER,iforest,2020-05,2020-06,2020-07,9,False,-,,
+NDMA in metformin ER,consensus,2020-05,2020-06,2020-07,9,False,-,,
+Methanol in hand sanitisers,zscore,2020-06,2020-08,2020-09,7,True,2020-09,0.0,-3.0
+Methanol in hand sanitisers,iqr,2020-06,2020-08,2020-09,7,True,2020-08,1.0,-2.0
+Methanol in hand sanitisers,iforest,2020-06,2020-08,2020-09,7,True,2020-09,0.0,-3.0
+Methanol in hand sanitisers,consensus,2020-06,2020-08,2020-09,7,True,2020-09,0.0,-3.0
+Benzene in aerosols/sunscreens,zscore,2021-05,2021-07,2021-10,2,False,-,,
+Benzene in aerosols/sunscreens,iqr,2021-05,2021-07,2021-10,2,False,-,,
+Benzene in aerosols/sunscreens,iforest,2021-05,2021-07,2021-10,2,False,-,,
+Benzene in aerosols/sunscreens,consensus,2021-05,2021-07,2021-10,2,False,-,,
+Contaminated eye drops,zscore,2023-02,2023-02,2023-03,3,False,-,,
+Contaminated eye drops,iqr,2023-02,2023-02,2023-03,3,False,-,,
+Contaminated eye drops,iforest,2023-02,2023-02,2023-03,3,False,-,,
+Contaminated eye drops,consensus,2023-02,2023-02,2023-03,3,False,-,,

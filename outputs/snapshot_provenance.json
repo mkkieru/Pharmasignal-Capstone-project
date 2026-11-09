@@ -1,0 +1,12 @@
+{
+  "source": "openFDA Drug Enforcement Reports (https://open.fda.gov/apis/drug/enforcement/)",
+  "sha256": "084964e13f5841e6822110d7f5b1409f8029bc0ab3b86b4089d60c021bae5c91",
+  "records": 18010,
+  "events": 4705,
+  "report_date_range": [
+    "2012-06-20",
+    "2026-10-07"
+  ],
+  "effective_snapshot_date": "2026-10-07",
+  "mode": "Historical research mode - no API calls during analysis"
+}

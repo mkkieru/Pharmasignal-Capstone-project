@@ -1,0 +1,5 @@
+method,events_detected,median_lead_to_peak,median_lead_vs_public,watch_alerts_per_month,unexplained_per_month,supplier_alerts_per_month,detection_rate
+iqr,4,0.0,-2.0,0.8,0.76,0.39,0.67
+iforest,2,0.0,-2.0,0.1,0.08,0.18,0.33
+consensus,2,0.0,-2.0,0.29,0.27,0.21,0.33
+zscore,2,0.0,-2.0,0.31,0.3,0.16,0.33

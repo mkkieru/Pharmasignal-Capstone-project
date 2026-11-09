@@ -2,6 +2,7 @@
 
 Run the notebook once (it creates outputs/), then:   streamlit run app.py
 """
+import os
 import re
 
 import altair as alt
@@ -32,13 +33,25 @@ def get_data():
     return core.load_data()
 
 
+def secret(name):
+    """Read a Streamlit secret (Streamlit Community Cloud > Settings > Secrets, or .streamlit/secrets.toml)."""
+    try:
+        return st.secrets.get(name)
+    except Exception:          # no secrets configured (normal when running locally with .env)
+        return None
+
+
 @st.cache_resource
 def get_llm():
+    key = secret("ANTHROPIC_API_KEY")
+    if key and not os.environ.get("ANTHROPIC_API_KEY"):
+        os.environ["ANTHROPIC_API_KEY"] = key
     return core.make_llm()
 
 
 d = get_data()
 llm = get_llm()
+APP_PASSWORD = secret("APP_PASSWORD")      # optional: protects Claude usage (your API credit) on a public deployment
 DISCLAIMER = ("Decision support only. Evidence comes from US FDA recall records "
               f"({d.source}); it never declares a medicine unsafe or recommends accepting or rejecting a supplier.")
 
@@ -192,9 +205,20 @@ EXAMPLES = ["Have there been unusual increases in contamination-related recalls?
 
 def assistant_page():
     st.title("💬 Ask the assistant")
+    unlocked = not APP_PASSWORD or st.session_state.get("unlocked", False)
+    page_llm = llm if unlocked else None
     if llm is None:
         st.warning("No Anthropic API key found, so answers show the evidence only. Add `ANTHROPIC_API_KEY=...` to a `.env` "
-                   "file next to app.py and restart the app (see README).")
+                   "file next to app.py (or to the app's Secrets on Streamlit Cloud) and restart the app (see README).")
+    elif not unlocked:
+        with st.form("unlock"):
+            st.info("Claude answers are password-protected. Without the password you still get the evidence from the data.")
+            pw = st.text_input("Password", type="password")
+            if st.form_submit_button("Unlock Claude answers"):
+                if pw == APP_PASSWORD:
+                    st.session_state.unlocked = True
+                    st.rerun()
+                st.error("Wrong password.")
     else:
         st.success(f"Claude connected ({core.LLM_MODEL}). Answers use only the recall data and are fact-checked.")
     st.caption(DISCLAIMER)
@@ -206,8 +230,8 @@ def assistant_page():
     question = st.chat_input("Ask about recalls, firms, products or alerts...") or clicked
 
     if question:
-        with st.spinner("Searching the evidence" + (" and asking Claude..." if llm else "...")):
-            st.session_state.chat.append((question, core.ask(d, question, llm)))
+        with st.spinner("Searching the evidence" + (" and asking Claude..." if page_llm else "...")):
+            st.session_state.chat.append((question, core.ask(d, question, page_llm)))
     if st.session_state.chat and st.button("Clear conversation"):
         st.session_state.chat = []
         st.rerun()

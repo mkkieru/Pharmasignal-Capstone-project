@@ -1,0 +1,9 @@
+component,target,achieved,status
+Classifier,Macro F1 >= 0.80 and beats keyword baseline,0.918 (95% CI 0.85-0.96) vs 0.811; CV 0.914 ± 0.029,met
+Labels,Human verification,0 human-verified; blind-check kappa = None,PENDING - complete blind check
+Detection,Most known events flagged by peak (iqr),4 of 6,met
+Lead time,Positive lead to peak,median 0 months,not met
+Earlier than news,Alert before public announcement,median -2 months,not met - FDA publication lag
+Workload,< 2 watch-list alerts per month,0.80,met
+Assistant,Evidence layer correct on 20-question test,20/20,met
+Assistant,Generated answers verified by checker,not run - no API key in this session (run on your machine with ANTHROPIC_API_KEY set),see value
