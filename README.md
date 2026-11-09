@@ -18,7 +18,7 @@ Keep all files in the same folder as the notebook. Results are written to `outpu
 Install Python 3.10 or newer, then from the project folder:
 
 ```bash
-pip install numpy pandas matplotlib scikit-learn joblib requests anthropic jupyter
+pip install -r requirements.txt
 ```
 
 ## Connecting Claude (optional)
@@ -49,3 +49,28 @@ To check whether the key is visible to the notebook, run in a cell:
 ```python
 import os; print(bool(os.environ.get("ANTHROPIC_API_KEY")))
 ```
+
+## Streamlit app
+
+An interactive web app built on the notebook's results, with four pages:
+
+| Page | What it shows |
+|---|---|
+| **Overview** | Key numbers, recalls per year, failure types, dosage forms, top firms, record search |
+| **Anomaly alerts** | Surge alerts by failure type, dosage form and firm, with a trend chart and the back-test |
+| **Tender screening** | Enter bidders and a product to get downloadable evidence briefs, plus a watch list of firms |
+| **Ask the assistant** | Plain-English questions answered by Claude using only the data, with sources and the fact-checker |
+
+1. **Run the notebook once** (Restart & Run All). It creates the `outputs/` folder the app reads; the app does not retrain anything.
+2. From the project folder, start the app:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+   On Windows, if `streamlit` is not recognised, use `python -m streamlit run app.py`.
+3. Your browser opens at http://localhost:8501. Stop the app with **Ctrl+C** in the terminal.
+
+The assistant uses the same `.env` API key as the notebook. Without a key the app still works, and the assistant shows the evidence only. Re-run the notebook whenever the data changes, then restart the app.
+
+The app code is in `app.py` (pages) and `pharmasignal_core.py` (data loading, tender screening and assistant logic, taken from the notebook).
